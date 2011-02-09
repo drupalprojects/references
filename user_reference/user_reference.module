@@ -640,13 +640,14 @@ function user_reference_content_migrate_field_alter(&$field_value, $instance_val
 function user_reference_content_migrate_instance_alter(&$instance_value, $field_value) {
   // The module name for the instance was corrected
   // by the change in user_reference_content_migrate_field_alter().
-  switch ($field_value['module']) {
-    case 'user_reference':
+  switch ($field_value['type']) {
+    case 'userreference':
       // The formatter names changed, all are prefixed
       // with 'user_reference_'.
       foreach ($instance_value['display'] as $context => $settings) {
         $instance_value['display'][$context]['type'] = 'user_reference_'. $settings['type'];
       }
+      // Massage the widget.
       switch ($instance_value['widget']['type']) {
         case 'userreference_autocomplete':
           $instance_value['widget']['type'] = 'user_reference_autocomplete';
