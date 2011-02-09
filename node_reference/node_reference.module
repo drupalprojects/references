@@ -785,7 +785,7 @@ function node_reference_options_list($field) {
  * $field_value['widget_type'] is available to
  * see what widget type was originally used.
  */
-function node_reference_content_migrate_field_alter(&$field_value) {
+function node_reference_content_migrate_field_alter(&$field_value, $instance_value) {
   switch ($field_value['module']) {
     case 'nodereference':
       $field_value['module'] = 'node_reference';
@@ -801,10 +801,10 @@ function node_reference_content_migrate_field_alter(&$field_value) {
  * style to the D7 style for specific situations not handled by basic
  * conversion, as when formatter or widget names or settings are changed.
  */
-function node_reference_content_migrate_instance_alter(&$instance_value) {
+function node_reference_content_migrate_instance_alter(&$instance_value, $field_value) {
   // The module name for the instance was corrected
   // by the change in node_reference_content_migrate_field_alter().
-  switch ($instance_value['module']) {
+  switch ($field_value['module']) {
     case 'node_reference':
       // The formatter names changed, all are prefixed
       // with 'node_reference_'.
